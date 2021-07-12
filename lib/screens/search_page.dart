@@ -19,21 +19,22 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        appBar: AppBar(title: Text("ECHO", style: TextStyle(color: Color(0xff5eedcb)))),
-        body: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                      child: TextField(
-                    decoration: InputDecoration(hintText: "Search User", contentPadding: EdgeInsets.only(left: 5)),
-                    controller: _searchController,
-                  )),
-                  GestureDetector(
+    return Scaffold(
+      appBar: AppBar(title: Text("ECHO", style: TextStyle(color: Color(0xff5eedcb)))),
+      body: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+            child: Row(
+              children: [
+                Expanded(
+                    flex: 5,
+                    child: TextField(
+                      decoration: InputDecoration(hintText: "Search User", contentPadding: EdgeInsets.only(left: 5)),
+                      controller: _searchController,
+                    )),
+                Expanded(
+                  child: GestureDetector(
                     onTap: () {
                       setState(() {
                         _searchingWord = _searchController.text;
@@ -47,19 +48,18 @@ class _SearchPageState extends State<SearchPage> {
                       child: Icon(Icons.search, color: Colors.blueGrey[700], size: 23),
                     ),
                   ),
-                ],
-              ),
-              Padding(padding: EdgeInsets.all(10)),
-              UsersWidget(pageType: "Search", searchingWord: _searchingWord, user: user, users: users)
-            ],
+                ),
+              ],
+            ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabBarOrientation()));
-          },
-          child: Icon(Icons.arrow_back_ios_outlined),
-        ),
+          UsersWidget(pageType: "Search", searchingWord: _searchingWord, user: user, users: users)
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabBarOrientation()));
+        },
+        child: Icon(Icons.arrow_back_ios_outlined),
       ),
     );
   }

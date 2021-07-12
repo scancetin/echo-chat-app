@@ -3,7 +3,6 @@ import 'package:echo_app/screens/friends_page.dart';
 import 'package:echo_app/screens/main_page.dart';
 import 'package:echo_app/screens/sign_in_page.dart';
 import 'package:echo_app/screens/status_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +15,7 @@ class TabBarOrientation extends StatefulWidget {
 
 class _TabBarOrientationState extends State<TabBarOrientation> with SingleTickerProviderStateMixin {
   TabController _tabController;
-  final user = FirebaseAuth.instance.currentUser;
+
   @override
   void initState() {
     _tabController = TabController(vsync: this, length: 3, initialIndex: 0);
@@ -37,17 +36,13 @@ class _TabBarOrientationState extends State<TabBarOrientation> with SingleTicker
                 ChangeNotifierProvider(
                     create: (context) => GoogleSignInProvider(),
                     builder: (context, snapshot) {
-                      return GestureDetector(
-                        onTap: () {
+                      return IconButton(
+                        icon: Icon(Icons.exit_to_app, color: Color(0xff5eedcb)),
+                        onPressed: () {
                           final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
                           provider.logout();
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignIn()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInPage()));
                         },
-                        child: Container(
-                          alignment: Alignment.centerRight,
-                          padding: EdgeInsets.only(right: 15),
-                          child: Icon(Icons.exit_to_app, color: Color(0xff5eedcb)),
-                        ),
                       );
                     })
               ],

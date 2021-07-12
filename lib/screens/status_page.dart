@@ -30,34 +30,37 @@ class _StatusPageState extends State<StatusPage> {
           Map<String, dynamic> data = snapshot.data.data();
           return Column(
             children: [
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(top: 50, bottom: 50),
+              Expanded(
+                flex: 3,
                 child: CircleAvatar(
                   radius: 80,
                   backgroundImage: NetworkImage(data["photoUrl"]),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(20),
-                child: TextField(
-                  decoration: InputDecoration(hintText: data["nickname"], contentPadding: EdgeInsets.only(left: 5)),
-                  controller: _controllerName,
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: TextField(
+                    decoration: InputDecoration(hintText: data["nickname"], contentPadding: EdgeInsets.only(left: 5)),
+                    controller: _controllerName,
+                  ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(20),
-                child: TextField(
-                  decoration: InputDecoration(hintText: data["status"], contentPadding: EdgeInsets.only(left: 5)),
-                  controller: _controllerAbout,
+              // Spacer(),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: TextField(
+                    decoration: InputDecoration(hintText: data["status"], contentPadding: EdgeInsets.only(left: 5)),
+                    controller: _controllerAbout,
+                  ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(top: 50),
+              Spacer(),
+              Expanded(
                 child: GestureDetector(
                   child: Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.only(top: 20, bottom: 20),
                     margin: EdgeInsets.symmetric(horizontal: 50),
                     decoration: BoxDecoration(color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(100)),
                     child: Text("Update Profile", style: TextStyle(color: Colors.black, fontSize: 18)),
@@ -66,7 +69,8 @@ class _StatusPageState extends State<StatusPage> {
                     updateUser();
                   },
                 ),
-              )
+              ),
+              Spacer(),
             ],
           );
         }

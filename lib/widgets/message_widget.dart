@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class MessageWidget extends StatelessWidget {
-  final User currentUser;
+  final User user;
   final String otherId;
   final CollectionReference chats;
-  const MessageWidget({Key key, this.currentUser, this.otherId, this.chats}) : super(key: key);
+  const MessageWidget({Key key, this.user, this.otherId, this.chats}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ids = [currentUser.uid, otherId];
+    final ids = [user.uid, otherId];
     ids.sort();
     final sortedIds = ids[0] + "-" + ids[1];
 
@@ -31,22 +31,20 @@ class MessageWidget extends StatelessWidget {
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 return ListTile(
                   title: Align(
-                      alignment: document.get("senderId") == currentUser.uid ? Alignment.bottomRight : Alignment.bottomLeft,
+                      alignment: document.get("senderId") == user.uid ? Alignment.bottomRight : Alignment.bottomLeft,
                       child: Column(
                         children: [
                           Container(
-                            padding: EdgeInsets.all(12),
+                            padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: document.get("senderId") == currentUser.uid ? Color(0xff3e6e62) : Color(0xFF3DBB9E),
+                              color: document.get("senderId") == user.uid ? Color(0xff3e6e62) : Color(0xFF3DBB9E),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(document.get("message")),
                           ),
-                          Container(
-                            child: Text(
-                              DateFormat("dd MMM kk:mm").format(DateTime.fromMicrosecondsSinceEpoch(document.get("createdAt").microsecondsSinceEpoch)),
-                              style: TextStyle(fontSize: 10, color: Colors.blueGrey),
-                            ),
+                          Text(
+                            DateFormat("dd MMM kk:mm").format(DateTime.fromMicrosecondsSinceEpoch(document.get("createdAt").microsecondsSinceEpoch)),
+                            style: TextStyle(fontSize: 10, color: Colors.blueGrey),
                           )
                         ],
                       )),

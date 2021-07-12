@@ -18,40 +18,40 @@ class _FriendsPageState extends State<FriendsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+          child: Row(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                      child: TextField(
-                    decoration: InputDecoration(hintText: "Search User", contentPadding: EdgeInsets.only(left: 5)),
-                    controller: _searchController,
-                  )),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _searchingWord = _searchController.text;
-                      });
-                    },
-                    child: Container(
-                      width: 45,
-                      height: 45,
-                      margin: EdgeInsets.only(left: 20),
-                      decoration: BoxDecoration(color: Color(0xff5eedcb), shape: BoxShape.circle),
-                      child: Icon(Icons.search, color: Colors.blueGrey[700], size: 23),
-                    ),
-                  ),
-                ],
+              Expanded(
+                flex: 5,
+                child: TextField(
+                  decoration: InputDecoration(hintText: "Search User", contentPadding: EdgeInsets.only(left: 5)),
+                  controller: _searchController,
+                ),
               ),
-              UsersWidget(pageType: "Friends", searchingWord: _searchingWord, user: user, users: users)
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _searchingWord = _searchController.text;
+                    });
+                  },
+                  child: Container(
+                    width: 45,
+                    height: 45,
+                    margin: EdgeInsets.only(left: 20),
+                    decoration: BoxDecoration(color: Color(0xff5eedcb), shape: BoxShape.circle),
+                    child: Icon(Icons.search, color: Colors.blueGrey[700], size: 23),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-      ),
+        UsersWidget(pageType: "Friends", searchingWord: _searchingWord, user: user, users: users),
+      ],
     );
   }
 }

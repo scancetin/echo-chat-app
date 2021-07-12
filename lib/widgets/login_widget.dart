@@ -14,6 +14,8 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+  final User currentUser = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -43,9 +45,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   Future addToFirestore() async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final currentUser = auth.currentUser;
-
     if (currentUser != null) {
       final QuerySnapshot result = await FirebaseFirestore.instance.collection('users').where('id', isEqualTo: currentUser.uid).get();
       final List<DocumentSnapshot> documents = result.docs;
@@ -60,10 +59,6 @@ class _LoginWidgetState extends State<LoginWidget> {
           "status": "About Me"
         });
       }
-      print(currentUser.displayName);
-      print(currentUser.email);
-      print(currentUser.photoURL);
-
       Fluttertoast.showToast(msg: "Login Succesfully");
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabBarOrientation()));
     }

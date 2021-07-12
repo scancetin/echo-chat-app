@@ -24,30 +24,29 @@ class UsersWidget extends StatelessWidget {
         }
 
         return Expanded(
-          child: new ListView(
+          child: ListView(
             children: snapshot.data.docs.map((DocumentSnapshot document) {
               if (getTypeResult(pageType, document)) {
-                return Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.all(5),
-                  color: Colors.teal[800],
-                  child: new ListTile(
-                    leading: new CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(document.get("photoUrl")),
+                return Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                      padding: EdgeInsets.all(5),
+                      color: Colors.teal[800],
+                      child: ListTile(
+                        leading: CircleAvatar(radius: 30, backgroundImage: NetworkImage(document.get("photoUrl"))),
+                        title: Text(document.get("nickname")),
+                        subtitle: Text(document.get("status")),
+                        trailing: IconButton(
+                          icon: Icon(Icons.eco_sharp, color: Color(0xff5eedcb), size: 40),
+                          onPressed: () {
+                            addToFriends(document.get("id"), document.get("friends"), document.get("chattingWith"));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChatPage(otherId: document.get("id"))));
+                          },
+                        ),
+                      ),
                     ),
-                    title: new Text(document.get("nickname")),
-                    subtitle: new Text(document.get("status")),
-                    trailing: GestureDetector(
-                      onTap: () {
-                        if (pageType == "Search") {
-                          addToFriends(document.get("id"), document.get("friends"), document.get("chattingWith"));
-                        }
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChatPage(otherId: document.get("id"))));
-                      },
-                      child: Icon(Icons.eco_sharp, color: Color(0xff5eedcb), size: 40),
-                    ),
-                  ),
+                  ],
                 );
               }
             }).toList(),

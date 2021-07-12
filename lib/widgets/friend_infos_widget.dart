@@ -16,13 +16,16 @@ class FriendInfosWidget extends StatelessWidget {
           Map<String, dynamic> data = snapshot.data.data();
           return Row(
             children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabBarOrientation()));
-                },
-                child: Icon(Icons.arrow_back_ios_sharp),
-              ),
-              Padding(padding: EdgeInsets.only(left: 8)),
+              SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: IconButton(
+                    padding: EdgeInsets.all(0),
+                    icon: Icon(Icons.arrow_back_ios_outlined),
+                    onPressed: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabBarOrientation()));
+                    },
+                  )),
               CircleAvatar(
                 radius: 25,
                 backgroundImage: NetworkImage(data['photoUrl']),

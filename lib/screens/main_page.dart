@@ -22,19 +22,20 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.all(5),
-          child: UsersWidget(pageType: "Main", searchingWord: "null", user: user, users: users),
+    return Column(
+      children: [
+        UsersWidget(pageType: "Main", searchingWord: "null", user: user, users: users),
+        Container(
+          alignment: Alignment.centerRight,
+          margin: EdgeInsets.all(15),
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchPage()));
+            },
+            child: Icon(Icons.add),
+          ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchPage()));
-          },
-          child: Icon(Icons.add),
-        ),
-      ),
+      ],
     );
   }
 }
